@@ -14,9 +14,11 @@ const filterStringAndSum = (value: string) =>
 const fetchInputByPersonalSession = fetchInput(personalLaptop);
 
 // eslint-disable-next-line functional/no-return-void
-const answer = pipe(fetchInputByPersonalSession(1), AR.map(filterStringAndSum)).then((v) =>
-  console.log(v._0),
-);
+const answer = pipe(
+  fetchInputByPersonalSession(1),
+  AR.map(filterStringAndSum),
+  // eslint-disable-next-line functional/no-return-void
+).then((v) => console.log(v._0));
 
 // eslint-disable-next-line functional/no-expression-statements
 await answer;
