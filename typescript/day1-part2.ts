@@ -13,15 +13,13 @@ const filterStringAndSum = (value: string) =>
 
 const fetchInputByPersonalSession = fetchInput(personalLaptop);
 
-// eslint-disable-next-line functional/no-return-void
 const answer = pipe(
   fetchInputByPersonalSession(1),
   AR.map(filterStringAndSum),
-  // eslint-disable-next-line functional/no-return-void
-).then((v) => console.log(v._0));
+).then((v) => v._0);
 
 // eslint-disable-next-line functional/no-expression-statements
-await answer;
+console.log(await answer);
 
 // console.log('t1', filterStringAndSum('oneight'));
 // console.log('t2', filterStringAndSum('twoneight'));
