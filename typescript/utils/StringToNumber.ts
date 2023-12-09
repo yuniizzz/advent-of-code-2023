@@ -1,32 +1,22 @@
-import { pipe, S, N, F } from "@mobily/ts-belt";
-import { match } from "ts-pattern";
+import { pipe, S, N, F, flow, O, A } from "@mobily/ts-belt";
 
-export const parseCountToNumberByZeroToFive = (value: string) => 
-  pipe(
-    value,
-    S.replaceByRe(/zero|ZERO/g, '0'),
-    S.replaceByRe(/one|ONE/g, '1'),
-    S.replaceByRe(/two|TWO/g, '2'),
-    S.replaceByRe(/three|THREE/g, '3'),
-    S.replaceByRe(/four|FOUR/g, '4'),
-    S.replaceByRe(/five|FIVE/g, '5'),
-  );
-
-export const parseCountToNumberBySixToNine = (value: string) =>
-  pipe(
-    value,
-    S.replaceByRe(/six|SIX/g, '6'),
-    S.replaceByRe(/seven|SEVEN/g, '7'),
-    S.replaceByRe(/eight|EIGHT/g, '8'),
-    S.replaceByRe(/nine|NINE/g, '9'),
-  );
-
-export const parseStringToNumber = (value: string) => 
+export const parseStringToDigit = (value: string) => 
   pipe(
     value,
     S.replaceByRe(/[^0-9]/g, ''),
-    (v) => match(v.length)
-      .when(N.lte(1), () => `${v}${v}`)
-      .when(N.gte(3), () => `${v.at(0)}${v.at(-1)}`)
-      .otherwise(F.always(v)),
-  )
+    (v) => `${v.at(0)}${v.at(-1)}`,
+  );
+
+export const parseCountToDigit = (value: string) => 
+  pipe(
+    value,
+    S.replaceByRe(/one|ONE/g, 'one1one'),
+    S.replaceByRe(/two|TWO/g, 'two2two'),
+    S.replaceByRe(/three|THREE/g, 'three3three'),
+    S.replaceByRe(/four|FOUR/g, 'four4four'),
+    S.replaceByRe(/five|FIVE/g, 'five5five'),
+    S.replaceByRe(/six|SIX/g, 'six6six'),
+    S.replaceByRe(/seven|SEVEN/g, 'seven7seven'),
+    S.replaceByRe(/eight|EIGHT/g, 'eight8eight'),
+    S.replaceByRe(/nine|NINE/g, 'nine9nine'),
+  );
