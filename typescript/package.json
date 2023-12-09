@@ -1,0 +1,16 @@
+{
+  "name": "advent-of-code-2023-typescript",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@mobily/ts-belt": "4.0.0-rc.5",
+    "ts-pattern": "^5.0.6"
+  }
+}
