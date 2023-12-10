@@ -13,16 +13,16 @@
   },
   "plugins": ["@typescript-eslint", "prettier", "functional"],
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "plugin:functional/external-vanilla-recommended",
-    "plugin:functional/recommended",
-    "plugin:functional/stylistic"
+    // "eslint:recommended",
+    // "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+    // "plugin:functional/external-vanilla-recommended",
+    // "plugin:functional/recommended",
+    // "plugin:functional/stylistic"
   ],
   "rules": {
-    "prettier/prettier": "error",
-    "functional/prefer-immutable-types": "off"
+    "prettier/prettier": "error"
+    // "functional/prefer-immutable-types": "off"
   },
   "ignorePatterns": ["dist/**", "*.test.*", "README.md"]
 }
