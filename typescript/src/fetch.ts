@@ -1,6 +1,7 @@
 import { AR, S, pipe } from '@mobily/ts-belt';
+import { personalLaptop, otherLaptop } from '../auth';
 
-export const fetchInput = (session: string) => (day: number) =>
+const fetchInput = (session: string) => (day: number) =>
   pipe(
     fetch(`https://adventofcode.com/2023/day/${day}/input`, {
       headers: {
@@ -11,3 +12,6 @@ export const fetchInput = (session: string) => (day: number) =>
       .then(S.trim),
     AR.make,
   );
+
+export const fetchInputByPersonalSession = fetchInput(personalLaptop);
+export const fetchInputByOtherSession = fetchInput(otherLaptop);

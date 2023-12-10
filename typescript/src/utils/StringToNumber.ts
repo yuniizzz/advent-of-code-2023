@@ -1,13 +1,12 @@
-import { pipe, S, N, F, flow, O, A } from "@mobily/ts-belt";
+import { pipe, S } from '@mobily/ts-belt';
 
-export const parseStringToDigit = (value: string) => 
-  pipe(
-    value,
-    S.replaceByRe(/[^0-9]/g, ''),
-    (v) => `${v.at(0)}${v.at(-1)}`,
-  );
+export const parseStringToDigit = (value: string) =>
+  S.replaceByRe(value, /[^0-9]/g, '');
 
-export const parseCountToDigit = (value: string) => 
+export const parseDigitLogicAndNumber = (value: string) =>
+  pipe(value, parseStringToDigit, (v) => `${v.at(0)}${v.at(-1)}`, Number);
+
+export const parseCountToDigit = (value: string) =>
   pipe(
     value,
     S.replaceByRe(/one|ONE/g, 'one1one'),

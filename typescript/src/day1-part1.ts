@@ -1,17 +1,14 @@
-import { A, AR, N, S, flow, pipe } from '@mobily/ts-belt';
-import { fetchInput } from './fetch';
-import { personalLaptop } from './auth';
-import { parseStringToDigit } from './utils/StringToNumber';
+import { A, AR, N, S, pipe } from '@mobily/ts-belt';
+import { fetchInputByPersonalSession } from './fetch';
+import { parseDigitLogicAndNumber } from './utils/StringToNumber';
 
 const filterStringAndSum = (value: string) =>
   pipe(
     value,
     S.split('\n'),
-    A.map(flow(parseStringToDigit, Number)),
+    A.map(parseDigitLogicAndNumber),
     A.reduce(0, N.add),
   );
-
-const fetchInputByPersonalSession = fetchInput(personalLaptop);
 
 const answer = pipe(
   fetchInputByPersonalSession(1),
