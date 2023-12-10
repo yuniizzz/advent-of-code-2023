@@ -1,4 +1,4 @@
-import { A, AR, B, F, N, O, S, flow, pipe } from '@mobily/ts-belt';
+import { A, AR, N, O, S, flow, pipe } from '@mobily/ts-belt';
 import { P, match } from 'ts-pattern';
 import { parseStringToDigit } from './utils/StringToNumber';
 import { fetchInputByPersonalSession } from './fetch';
@@ -6,28 +6,13 @@ import { fetchInputByPersonalSession } from './fetch';
 type CubeColor = 'red' | 'green' | 'blue';
 
 const filterString = (game: string) => {
-  console.log('-------------------');
-  console.log('game', game);
-  const parseGame = pipe(game, S.split(':'));
-
   const parseStringToNumber = (value: string) =>
     pipe(value, parseStringToDigit, Number);
-  const parseGameSet = pipe(parseGame, A.last, O.map(S.split(';')));
-  console.log('parseGameSet', parseGameSet);
-
-  const parseGameSetFlat = pipe(
-    parseGameSet,
-    O.map(A.map(S.split(','))),
-    O.map(A.deepFlat),
-  );
-  console.log('parseGameSetFlat', parseGameSetFlat);
-
   const filterCubeColor = (cubeColor: CubeColor) =>
     pipe(
       parseGameSetFlat,
       O.map(flow(A.filter(S.includes(cubeColor)), A.map(parseStringToNumber))),
     );
-
   const cubeMaxCountByCubeColor = (cubeColor: CubeColor) =>
     pipe(
       cubeColor,
@@ -35,14 +20,19 @@ const filterString = (game: string) => {
       O.map(A.reduce(0, (acc, v) => (v > acc ? v : acc))),
     );
 
+  const parseGame = pipe(game, S.split(':'));
+  const parseGameSet = pipe(parseGame, A.last, O.map(S.split(';')));
+  const parseGameSetFlat = pipe(
+    parseGameSet,
+    O.map(A.map(S.split(','))),
+    O.map(A.deepFlat),
+  );
+
   const cubeSet = [
     cubeMaxCountByCubeColor('red'),
     cubeMaxCountByCubeColor('green'),
     cubeMaxCountByCubeColor('blue'),
-  ] as const;
-
-  console.log('cubeSet', cubeSet);
-
+  ];
   return match(cubeSet)
     .with(
       [P.not(P.nullish), P.not(P.nullish), P.not(P.nullish)],
